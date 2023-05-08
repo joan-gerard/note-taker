@@ -1,8 +1,19 @@
-import styles from './AddNoteForm.css';
+import { Form, useNavigation } from "@remix-run/react";
+import { useActionData } from "react-router";
+import styles from "./AddNoteForm.css";
 
 function AddNoteForm() {
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
+
+  // get data from an action
+  const ActionData = useActionData() as ActionData | undefined;
+  console.log("here", ActionData);
   return (
-    <form method="post" id="note-form">
+    <Form method="post" id="note-form">
+      {ActionData == undefined ? null : (
+        <p className="error">{ActionData.message}</p>
+      )}
       <p>
         <label htmlFor="title">Title</label>
         <input type="text" id="title" name="title" required />
@@ -12,14 +23,16 @@ function AddNoteForm() {
         <textarea id="content" name="content" rows={5} required />
       </p>
       <div className="form-actions">
-        <button>Add Note</button>
+        <button disabled={isSubmitting}>
+          {isSubmitting ? "Adding..." : "Add Note"}
+        </button>
       </div>
-    </form>
+    </Form>
   );
 }
 
 export default AddNoteForm;
 
 export function links() {
-  return [{ rel: 'stylesheet', href: styles }];
+  return [{ rel: "stylesheet", href: styles }];
 }

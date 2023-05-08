@@ -1,17 +1,12 @@
 import React from "react";
-import { Link, useLoaderData } from "@remix-run/react";
+import { isRouteErrorResponse, Link, useLoaderData, useRouteError } from "@remix-run/react";
 import AddNoteForm, { links as newNoteLinks } from "~/components/AddNoteForm";
 import NoteList, { links as noteListLink } from "~/components/NoteList";
 import { getStoredNotes, storeNotes } from "~/data/notes";
-import { json, redirect } from "@remix-run/node";
-
-interface NoteRecord {
-  title: string;
-  content: string;
-  id: string;
-}
+import { redirect } from "@remix-run/node";
 
 const notes = () => {
+  // Get data from a loader
   const notes: NoteRecord[] = useLoaderData();
 
   return (
@@ -35,13 +30,13 @@ export async function action({ request }: { request: any }) {
   };
 
   // Add Validation
+  if (noteData.title.trim().length < 5) {
+    return { message: "Invalid title. Must be at least 5 characters long" };
+  }
 
   const existingNotes = await getStoredNotes();
-
   const updatedNotes: NoteRecord[] = existingNotes.concat(noteData);
-
   await storeNotes(updatedNotes);
-
   return redirect("/notes");
 }
 
@@ -64,4 +59,30 @@ export async function loader() {
 
 export function links() {
   return [...newNoteLinks(), ...noteListLink()];
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <main>
+        <h1>An error related to your notes occurred</h1>
+        <p>{error.data}</p>
+        <p>
+          Back to <Link to="/">Safety</Link>
+        </p>
+      </main>
+    );
+  } else if (error instanceof Error) {
+    return (
+      <main className="error">
+        <h1>An error related to your notes occurred</h1>
+        <p>{error.stack}</p>
+        <p>
+          Back to <Link to="/">Safety</Link>
+        </p>
+      </main>
+    );
+  }
 }

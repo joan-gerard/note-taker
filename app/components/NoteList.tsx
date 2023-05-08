@@ -1,11 +1,5 @@
 import styles from "./NoteList.css";
 
-interface NoteRecord {
-  title: string;
-  content: string;
-  id: string;
-}
-
 function NoteList({ notes }: { notes: NoteRecord[] }) {
   return (
     <ul id="note-list">
