@@ -5,7 +5,7 @@ import type { LinksFunction } from "@remix-run/node";
 import homeStyles from "../styles/home.css";
 
 export const meta: V2_MetaFunction = () => {
-  return [{ title: "New Remix App" }];
+  return [{ title: "Note Taker" }];
 };
 
 export default function Index() {

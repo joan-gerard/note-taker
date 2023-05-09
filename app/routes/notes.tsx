@@ -8,7 +8,7 @@ import {
 import AddNoteForm, { links as newNoteLinks } from "~/components/AddNoteForm";
 import NoteList, { links as noteListLink } from "~/components/NoteList";
 import { getStoredNotes, storeNotes } from "~/data/notes";
-import { redirect } from "@remix-run/node";
+import { redirect, V2_MetaFunction } from "@remix-run/node";
 import { json } from "react-router";
 
 const notes = () => {
@@ -103,4 +103,6 @@ export function ErrorBoundary() {
   }
 }
 
-// will be rendered whenever we have an error response being thrown by an action or loader related to this route
+export const meta: V2_MetaFunction = () => {
+  return [{ title: "All notes", description: "Manage your notes with ease" }];
+};

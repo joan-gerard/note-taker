@@ -1,4 +1,4 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node"; // or cloudflare/deno
+import type { ActionArgs, LoaderArgs, V2_MetaFunction } from "@remix-run/node"; // or cloudflare/deno
 import { useParams } from "@remix-run/react";
 
 import { Link, useLoaderData } from "@remix-run/react";
@@ -42,3 +42,8 @@ export const links: LinksFunction = () => [
   // { rel: "stylesheet", href: styles },
   { rel: "stylesheet", href: noteDetailsStyles },
 ];
+
+// data will hold the returned value of the loader
+export const meta: V2_MetaFunction = ({data}) => {
+  return [{ title: data.title }];
+};
