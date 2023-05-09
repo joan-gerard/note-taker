@@ -59,7 +59,7 @@ export function ErrorBoundary() {
           <header>
             <MainNavigation />
           </header>
-          <main>
+          <main className="error">
             <h1>An Error Occurred</h1>
             <p>{error.data}</p>
             <p>

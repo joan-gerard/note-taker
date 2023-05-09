@@ -1,9 +1,15 @@
 import React from "react";
-import { isRouteErrorResponse, Link, useLoaderData, useRouteError } from "@remix-run/react";
+import {
+  isRouteErrorResponse,
+  Link,
+  useLoaderData,
+  useRouteError,
+} from "@remix-run/react";
 import AddNoteForm, { links as newNoteLinks } from "~/components/AddNoteForm";
 import NoteList, { links as noteListLink } from "~/components/NoteList";
 import { getStoredNotes, storeNotes } from "~/data/notes";
 import { redirect } from "@remix-run/node";
+import { json } from "react-router";
 
 const notes = () => {
   // Get data from a loader
@@ -44,6 +50,18 @@ export async function action({ request }: { request: any }) {
 export async function loader() {
   const notes: NoteRecord[] = await getStoredNotes();
 
+  if (!notes || notes.length === 0) {
+    throw json(
+      {
+        message: "Could not find any notes",
+      },
+      {
+        status: 404,
+        statusText: "Not Found",
+      }
+    );
+  }
+
   return notes;
 
   // Below: What Remix does under the hood
@@ -67,17 +85,15 @@ export function ErrorBoundary() {
   if (isRouteErrorResponse(error)) {
     return (
       <main>
-        <h1>An error related to your notes occurred</h1>
-        <p>{error.data}</p>
-        <p>
-          Back to <Link to="/">Safety</Link>
-        </p>
+        <AddNoteForm />
+        <p className="info-message">{error.data.message}</p>
       </main>
     );
   } else if (error instanceof Error) {
     return (
       <main className="error">
         <h1>An error related to your notes occurred</h1>
+        <p>error instanceof Error</p>
         <p>{error.stack}</p>
         <p>
           Back to <Link to="/">Safety</Link>
@@ -86,3 +102,5 @@ export function ErrorBoundary() {
     );
   }
 }
+
+// will be rendered whenever we have an error response being thrown by an action or loader related to this route
