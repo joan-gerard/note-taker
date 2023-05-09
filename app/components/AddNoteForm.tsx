@@ -8,7 +8,6 @@ function AddNoteForm() {
 
   // get data from an action
   const ActionData = useActionData() as ActionData | undefined;
-  console.log("here", ActionData);
   return (
     <Form method="post" id="note-form">
       {ActionData == undefined ? null : (

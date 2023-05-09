@@ -88,7 +88,7 @@ export function ErrorBoundary() {
           </header>
           <main className="error">
             <h1>An Error Occurred</h1>
-            <p>{error.stack}</p>
+            <p>{error.message}</p>
             <p>
               Back to <Link to="/">Safety</Link>
             </p>
