@@ -85,7 +85,7 @@ export function ErrorBoundary() {
 
   if (isRouteErrorResponse(error)) {
     return (
-      <main>
+          <main>
         <AddNoteForm />
         <p className="info-message">{error.data.message}</p>
       </main>
