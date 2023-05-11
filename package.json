@@ -5,7 +5,7 @@
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build",
-    "typecheck": "tsc",
+    "typecheck": "tsc -b",
     "build:css": "npm run generate:css -- --minify",
     "generate:css": "tailwindcss -o ./app/styles/home.css",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint --resolve-plugins-relative-to ."
