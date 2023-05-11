@@ -50,7 +50,7 @@ export async function action({ request }: { request: any }) {
 // triggered when a GET request when route is hit
 export async function loader() {
   const notes: NoteRecord[] = await getStoredNotes();
-
+console.log('here')
   if (!notes || notes.length === 0) {
     throw json(
       {

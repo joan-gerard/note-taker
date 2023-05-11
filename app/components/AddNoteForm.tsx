@@ -5,7 +5,9 @@ import styles from "./AddNoteForm.css";
 function AddNoteForm() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+      console.log('here')
 
+      
   // get data from an action
   const ActionData = useActionData() as ActionData | undefined;
   return (
