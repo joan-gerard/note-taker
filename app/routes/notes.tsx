@@ -14,7 +14,7 @@ import { HydrationProvider, Client } from "react-hydration-provider";
 
 const notes = () => {
   // Get data from a loader
-  const notes: NoteRecord[] = useLoaderData();
+  const notes: any = useLoaderData();
 
   return (
     <main>
@@ -87,7 +87,9 @@ export function ErrorBoundary() {
     return (
           <main>
         <AddNoteForm />
-        <p className="info-message">{error.data.message}</p>
+
+
+<p className="info-message">{error.data.message}</p>
       </main>
     );
   } else if (error instanceof Error) {
@@ -109,3 +111,5 @@ export function ErrorBoundary() {
 export const meta: V2_MetaFunction = () => {
   return [{ title: "All notes", description: "Manage your notes with ease" }];
 };
+
+

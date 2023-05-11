@@ -8,7 +8,8 @@
     "typecheck": "tsc -b",
     "build:css": "npm run generate:css -- --minify",
     "generate:css": "tailwindcss -o ./app/styles/home.css",
-    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint --resolve-plugins-relative-to ."
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint --resolve-plugins-relative-to .",
+    "eslint": "eslint"
   },
   "dependencies": {
     "@remix-run/css-bundle": "^1.16.0",
