@@ -10,6 +10,7 @@ import NoteList, { links as noteListLink } from "~/components/NoteList";
 import { getStoredNotes, storeNotes } from "~/data/notes";
 import { redirect, V2_MetaFunction } from "@remix-run/node";
 import { json } from "react-router";
+import { HydrationProvider, Client } from "react-hydration-provider";
 
 const notes = () => {
   // Get data from a loader
@@ -91,14 +92,16 @@ export function ErrorBoundary() {
     );
   } else if (error instanceof Error) {
     return (
-      <main className="error">
-        <h1>An error related to your notes occurred</h1>
-        <p>error instanceof Error</p>
-        <p>{error.stack}</p>
-        <p>
-          Back to <Link to="/">Safety</Link>
-        </p>
-      </main>
+      <HydrationProvider>
+        <main className="error">
+          <h1>An error related to your notes occurred</h1>
+          <p>error instanceof Error</p>
+          <p>{error.stack}</p>
+          <p>
+            Back to <Link to="/">Safety</Link>
+          </p>
+        </main>
+      </HydrationProvider>
     );
   }
 }

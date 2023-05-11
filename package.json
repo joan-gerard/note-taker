@@ -5,7 +5,9 @@
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "build:css": "npm run generate:css -- --minify",
+    "generate:css": "tailwindcss -o ./app/styles/home.css"
   },
   "dependencies": {
     "@remix-run/css-bundle": "^1.16.0",
@@ -14,7 +16,8 @@
     "@remix-run/serve": "^1.16.0",
     "isbot": "^3.6.8",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hydration-provider": "^1.0.2"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.16.0",
